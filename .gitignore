@@ -1,0 +1,8 @@
+/venv
+.venv/
+.vercel/
+.env
+tracker/database/data.json
+__pycache__/
+*py[cod]
+*test*
