@@ -79,6 +79,14 @@ async def create_content(payload: TrackerCreate, request: Request):
     return JSONResponse(status_code=400, content={"message": "Tracker not created"})
 
 
+@router.delete("/{content_id}")
+async def delete_content(content_id: str):
+    _get_content_or_404(content_id)
+    if DATABASE.delete_content(content_id):
+        return {"message": "Tracker deleted"}
+    return JSONResponse(status_code=400, content={"message": "Tracker not deleted"})
+
+
 @router.get("/add")
 async def add_content(request: Request):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

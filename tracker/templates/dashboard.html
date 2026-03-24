@@ -6,17 +6,19 @@
     <title>MailTracker Dashboard</title>
     <style>
         :root {
-            --bg-top: #f6efe3;
-            --bg-bottom: #d8ebf2;
-            --panel: rgba(255, 255, 255, 0.82);
-            --panel-strong: rgba(255, 255, 255, 0.94);
-            --text: #1e293b;
-            --muted: #546273;
+            --bg-top: #f5ecd8;
+            --bg-bottom: #dbeaf4;
+            --panel: rgba(255, 255, 255, 0.84);
+            --panel-soft: rgba(255, 255, 255, 0.66);
+            --text: #172033;
+            --muted: #5e6b7a;
             --accent: #0f766e;
             --accent-strong: #115e59;
-            --accent-soft: #d9f3ef;
+            --accent-soft: #dbf2ee;
+            --danger: #b42318;
+            --danger-soft: #fbe9e7;
             --line: rgba(15, 23, 42, 0.08);
-            --shadow: 0 24px 60px rgba(32, 52, 73, 0.16);
+            --shadow: 0 28px 70px rgba(32, 52, 73, 0.16);
             --radius: 24px;
         }
 
@@ -30,40 +32,45 @@
             font-family: "Aptos", "Trebuchet MS", "Segoe UI", sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(255, 255, 255, 0.65), transparent 32%),
-                radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.16), transparent 26%),
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.72), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.12), transparent 24%),
                 linear-gradient(145deg, var(--bg-top), var(--bg-bottom));
         }
 
         .shell {
-            width: min(1180px, calc(100% - 32px));
-            margin: 32px auto;
+            width: min(1240px, calc(100% - 32px));
+            margin: 28px auto 36px;
             display: grid;
             gap: 22px;
         }
 
-        .hero {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(244, 251, 250, 0.85));
-            border: 1px solid rgba(255, 255, 255, 0.65);
+        .hero,
+        .panel {
+            background: var(--panel);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.56);
             box-shadow: var(--shadow);
-            border-radius: calc(var(--radius) + 6px);
+            border-radius: calc(var(--radius) + 2px);
+        }
+
+        .hero {
             padding: 28px;
             display: grid;
-            gap: 18px;
+            gap: 20px;
         }
 
         .eyebrow {
             display: inline-flex;
-            width: fit-content;
             align-items: center;
             gap: 8px;
+            width: fit-content;
             padding: 8px 12px;
             border-radius: 999px;
             background: rgba(15, 118, 110, 0.1);
             color: var(--accent-strong);
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.04em;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
@@ -73,60 +80,86 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.25fr 0.95fr;
+            grid-template-columns: 1.2fr 0.95fr;
             gap: 20px;
         }
 
         .headline {
-            font-size: clamp(34px, 4vw, 58px);
+            font-size: clamp(34px, 4vw, 60px);
             line-height: 0.96;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.05em;
             max-width: 10ch;
         }
 
         .subhead {
             margin-top: 14px;
-            max-width: 60ch;
+            max-width: 58ch;
             color: var(--muted);
             font-size: 17px;
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
-        .panel {
-            background: var(--panel);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        .steps {
+        .hero-side {
             display: grid;
             gap: 12px;
-            padding: 20px;
         }
 
-        .step {
-            padding: 14px 16px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.78);
+        .hero-tip {
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(15, 23, 42, 0.06);
         }
 
-        .step strong {
+        .hero-tip strong {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-size: 15px;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .hero-stat {
+            padding: 16px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(235, 247, 245, 0.86));
+            border: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .hero-stat span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 800;
+        }
+
+        .hero-stat strong {
+            display: block;
+            margin-top: 8px;
+            font-size: 28px;
+            letter-spacing: -0.05em;
         }
 
         .layout {
             display: grid;
-            grid-template-columns: 360px 1fr;
+            grid-template-columns: 370px 1fr;
             gap: 22px;
+            align-items: start;
         }
 
         .card {
             padding: 24px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 16px;
         }
 
         .muted {
@@ -142,23 +175,18 @@
         label {
             display: grid;
             gap: 8px;
-            font-weight: 700;
             font-size: 14px;
+            font-weight: 700;
         }
 
-        input, textarea {
+        input {
             width: 100%;
             padding: 13px 14px;
             border-radius: 16px;
             border: 1px solid rgba(15, 23, 42, 0.1);
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             color: var(--text);
             font: inherit;
-        }
-
-        textarea {
-            min-height: 110px;
-            resize: vertical;
         }
 
         button {
@@ -166,7 +194,7 @@
             border-radius: 16px;
             padding: 12px 16px;
             font: inherit;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
         }
@@ -190,6 +218,11 @@
             color: var(--text);
         }
 
+        .danger {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
         .status {
             margin-top: 14px;
             min-height: 22px;
@@ -197,9 +230,17 @@
             font-size: 14px;
         }
 
-        .stack {
-            display: grid;
-            gap: 16px;
+        .tiny {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .tracker-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 12px;
         }
 
         .trackers {
@@ -212,7 +253,7 @@
             padding: 16px;
             border-radius: 18px;
             border: 1px solid transparent;
-            background: rgba(255, 255, 255, 0.66);
+            background: rgba(255, 255, 255, 0.72);
             cursor: pointer;
             transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
         }
@@ -220,15 +261,15 @@
         .tracker-card:hover,
         .tracker-card.active {
             border-color: rgba(15, 118, 110, 0.35);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             transform: translateY(-1px);
         }
 
         .tracker-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
             gap: 12px;
+            align-items: start;
         }
 
         .tracker-name {
@@ -246,13 +287,39 @@
             color: var(--accent-strong);
             font-size: 12px;
             font-weight: 800;
-            text-transform: uppercase;
             letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .tracker-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .tracker-actions button {
+            padding: 9px 12px;
+            border-radius: 12px;
+            font-size: 13px;
         }
 
         .details {
             display: grid;
             gap: 18px;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 16px;
+        }
+
+        .detail-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .detail-block {
@@ -300,6 +367,18 @@
             line-height: 1.55;
         }
 
+        .gmail-box {
+            margin-top: 14px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(15, 118, 110, 0.08);
+        }
+
+        .gmail-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -322,28 +401,23 @@
         .empty {
             padding: 28px;
             border-radius: 22px;
-            background: rgba(255, 255, 255, 0.72);
+            background: var(--panel-soft);
             text-align: center;
             color: var(--muted);
         }
 
-        .tiny {
-            font-size: 13px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        @media (max-width: 980px) {
+        @media (max-width: 1080px) {
             .hero-grid,
             .layout,
-            .detail-grid {
+            .detail-grid,
+            .quick-stats {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 640px) {
             .shell {
-                width: min(100% - 20px, 100%);
+                width: min(100% - 18px, 100%);
                 margin: 12px auto 24px;
             }
 
@@ -354,10 +428,12 @@
 
             .headline {
                 max-width: 100%;
-                font-size: 38px;
+                font-size: 40px;
             }
 
-            .tracker-row {
+            .tracker-row,
+            .detail-header,
+            .tracker-head {
                 flex-direction: column;
             }
         }
@@ -366,28 +442,37 @@
 <body>
     <main class="shell">
         <section class="hero">
-            <span class="eyebrow">Simple Email Tracking</span>
+            <span class="eyebrow">Email Open Tracking</span>
             <div class="hero-grid">
                 <div>
-                    <h1 class="headline">Create a tracker. Paste it into your email. Watch opens appear.</h1>
+                    <h1 class="headline">Make a tracker, copy the pixel, paste it into Gmail, and watch opens land here.</h1>
                     <p class="subhead">
-                        This page wraps the raw API in a simpler flow. You create a tracking pixel, copy the generated
-                        HTML snippet, and paste it into an HTML email or email signature. When the image loads, the open is recorded here.
+                        This dashboard skips the raw API docs and gives you the practical flow: create a tracker, copy a ready-made pixel or HTML snippet, send your message, and review opens in one place.
                     </p>
                 </div>
-                <div class="panel steps">
-                    <div class="step">
-                        <strong>1. Create a tracker</strong>
-                        Give it a clear name like "March follow-up" or "Client proposal".
+                <div class="hero-side">
+                    <div class="hero-tip">
+                        <strong>Fast Gmail test</strong>
+                        Open Gmail, switch to rich formatting, inspect or edit the message HTML with a browser extension or use an email tool that supports HTML paste, then insert the copied pixel snippet.
                     </div>
-                    <div class="step">
-                        <strong>2. Copy the email snippet</strong>
-                        Paste the generated image tag into the HTML version of your email.
+                    <div class="hero-tip">
+                        <strong>Important</strong>
+                        Opens only count when the recipient's email client actually loads remote images.
                     </div>
-                    <div class="step">
-                        <strong>3. Check opens below</strong>
-                        Each image load adds a new open entry with time, IP, and user agent.
-                    </div>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <div class="hero-stat">
+                    <span>Total trackers</span>
+                    <strong id="hero-trackers">0</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Total opens</span>
+                    <strong id="hero-opens">0</strong>
+                </div>
+                <div class="hero-stat">
+                    <span>Most recent open</span>
+                    <strong id="hero-last-open" style="font-size: 18px;">No opens yet</strong>
                 </div>
             </div>
         </section>
@@ -397,12 +482,12 @@
                 <div class="panel card">
                     <h2>Create a Tracker</h2>
                     <p class="muted" style="margin-top: 8px;">
-                        Start with a simple label. Recipient and subject are optional and just help you stay organized.
+                        Give the tracker a clear label. Recipient and subject are optional and only help you stay organized.
                     </p>
                     <form id="create-form">
                         <label>
                             Tracker name
-                            <input id="name" name="name" placeholder="Example: Proposal for Ana" required>
+                            <input id="name" name="name" placeholder="Example: Follow-up for Ana" required>
                         </label>
                         <label>
                             Recipient
@@ -410,21 +495,21 @@
                         </label>
                         <label>
                             Subject
-                            <input id="subject" name="subject" placeholder="Example: Q2 Proposal">
+                            <input id="subject" name="subject" placeholder="Example: Proposal follow-up">
                         </label>
                         <button class="primary" type="submit">Create tracker</button>
                     </form>
                     <div class="status" id="status"></div>
                     <p class="tiny">
-                        Note: many email clients block remote images until the recipient allows them, so an "open" only appears after the image is actually loaded.
+                        Tip: once the tracker is created, use the <strong>Copy pixel</strong> button on the right for the easiest Gmail test.
                     </p>
                 </div>
 
                 <div class="panel card">
-                    <div class="tracker-row">
+                    <div class="tracker-head">
                         <div>
                             <h2>Your Trackers</h2>
-                            <p class="muted" style="margin-top: 8px;">Click any tracker to inspect its details.</p>
+                            <p class="muted" style="margin-top: 8px;">Select one to copy its pixel, review opens, or delete it.</p>
                         </div>
                         <button class="ghost" id="refresh-button" type="button">Refresh</button>
                     </div>
@@ -435,7 +520,7 @@
             <section class="panel card details" id="details">
                 <div class="empty">
                     <h3>No tracker selected yet</h3>
-                    <p style="margin-top: 8px;">Create one on the left, then this panel will show the copy-ready tracking code and recorded opens.</p>
+                    <p style="margin-top: 8px;">Create one on the left, then this panel will show the pixel code, copy buttons, and open history.</p>
                 </div>
             </section>
         </section>
@@ -452,14 +537,17 @@
         const status = document.getElementById("status");
         const form = document.getElementById("create-form");
         const refreshButton = document.getElementById("refresh-button");
+        const heroTrackers = document.getElementById("hero-trackers");
+        const heroOpens = document.getElementById("hero-opens");
+        const heroLastOpen = document.getElementById("hero-last-open");
 
         function formatDate(value) {
-            if (!value) return "Not yet";
+            if (!value) return "No opens yet";
             return new Date(value).toLocaleString();
         }
 
         function escapeHtml(value) {
-            return value
+            return String(value)
                 .replaceAll("&", "&amp;")
                 .replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;")
@@ -473,15 +561,30 @@
 
         function setStatus(message, isError = false) {
             status.textContent = message;
-            status.style.color = isError ? "#b91c1c" : "#115e59";
+            status.style.color = isError ? "#b42318" : "#115e59";
+        }
+
+        function updateHeroStats() {
+            heroTrackers.textContent = String(state.trackers.length);
+            const totalOpens = state.trackers.reduce((sum, tracker) => sum + tracker.open_count, 0);
+            heroOpens.textContent = String(totalOpens);
+
+            const latest = state.trackers
+                .map((tracker) => tracker.last_opened_at)
+                .filter(Boolean)
+                .sort((a, b) => new Date(b) - new Date(a))[0];
+
+            heroLastOpen.textContent = latest ? formatDate(latest) : "No opens yet";
         }
 
         function renderTrackers() {
+            updateHeroStats();
+
             if (!state.trackers.length) {
                 trackerList.innerHTML = `
                     <div class="empty">
                         <h3>No trackers yet</h3>
-                        <p style="margin-top: 8px;">Create your first tracker to generate an email image snippet.</p>
+                        <p style="margin-top: 8px;">Create your first tracker to get a copy-ready pixel for Gmail testing.</p>
                     </div>
                 `;
                 return;
@@ -500,12 +603,38 @@
                         Recipient: ${escapeHtml(tracker.recipient || "Not set")}<br>
                         Last open: ${escapeHtml(formatDate(tracker.last_opened_at))}
                     </div>
+                    <div class="tracker-actions">
+                        <button class="secondary quick-copy" type="button" data-id="${tracker.id}">Copy pixel</button>
+                        <button class="ghost quick-select" type="button" data-id="${tracker.id}">Open details</button>
+                    </div>
                 </article>
             `).join("");
 
             for (const card of trackerList.querySelectorAll(".tracker-card")) {
-                card.addEventListener("click", () => {
+                card.addEventListener("click", (event) => {
+                    if (event.target.closest("button")) {
+                        return;
+                    }
                     state.selectedId = card.dataset.id;
+                    renderTrackers();
+                    loadDetail();
+                });
+            }
+
+            for (const button of trackerList.querySelectorAll(".quick-copy")) {
+                button.addEventListener("click", async (event) => {
+                    event.stopPropagation();
+                    const tracker = state.trackers.find((item) => item.id === button.dataset.id);
+                    if (tracker) {
+                        await copyText(tracker.email_html, "Pixel snippet");
+                    }
+                });
+            }
+
+            for (const button of trackerList.querySelectorAll(".quick-select")) {
+                button.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    state.selectedId = button.dataset.id;
                     renderTrackers();
                     loadDetail();
                 });
@@ -516,7 +645,7 @@
             details.innerHTML = `
                 <div class="empty">
                     <h3>No tracker selected yet</h3>
-                    <p style="margin-top: 8px;">Create one on the left, then this panel will show the copy-ready tracking code and recorded opens.</p>
+                    <p style="margin-top: 8px;">Create one on the left, then this panel will show the pixel code, copy buttons, and open history.</p>
                 </div>
             `;
         }
@@ -532,16 +661,25 @@
                 `).join("")
                 : `
                     <tr>
-                        <td colspan="3" class="muted">No opens yet. After someone loads the image in the email, the first event will appear here.</td>
+                        <td colspan="3" class="muted">No opens yet. Once the email client loads the image, the first event will appear here.</td>
                     </tr>
                 `;
 
+            const pixelOnly = `<img src="${detail.tracking_url}" alt="" width="1" height="1" style="display:block;width:1px;height:1px;border:0;" />`;
+
             details.innerHTML = `
-                <div>
-                    <h2>${escapeHtml(detail.name)}</h2>
-                    <p class="muted" style="margin-top: 8px;">
-                        ${escapeHtml(detail.subject || "No subject saved")}
-                    </p>
+                <div class="detail-header">
+                    <div>
+                        <h2>${escapeHtml(detail.name)}</h2>
+                        <p class="muted" style="margin-top: 8px;">
+                            ${escapeHtml(detail.subject || "No subject saved")}
+                        </p>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="secondary" type="button" id="copy-pixel-top">Copy pixel</button>
+                        <button class="ghost" type="button" id="refresh-detail">Refresh opens</button>
+                        <button class="danger" type="button" id="delete-tracker">Delete tracker</button>
+                    </div>
                 </div>
 
                 <div class="detail-grid">
@@ -560,21 +698,34 @@
                 </div>
 
                 <div class="detail-block">
-                    <h3>Tracking URL</h3>
-                    <p class="muted" style="margin-top: 8px;">Open this URL directly to simulate an image load, or use the snippet below in your HTML email.</p>
-                    <div class="code-box" style="margin-top: 14px;">${escapeHtml(detail.tracking_url)}</div>
+                    <h3>Copy-ready pixel</h3>
+                    <p class="muted" style="margin-top: 8px;">This is the exact pixel tag to paste into an HTML email for a quick Gmail test.</p>
+                    <div class="code-box" style="margin-top: 14px;">${escapeHtml(pixelOnly)}</div>
                     <div class="actions">
-                        <button class="secondary" type="button" id="copy-url">Copy URL</button>
-                        <button class="ghost" type="button" id="open-url">Open URL</button>
+                        <button class="secondary" type="button" id="copy-pixel">Copy pixel</button>
+                        <button class="ghost" type="button" id="open-url">Open pixel URL</button>
+                    </div>
+                    <div class="gmail-box">
+                        <strong>Gmail testing note</strong>
+                        Gmail compose does not expose raw HTML paste directly. The easiest test is using an HTML email sender, a browser extension that lets you insert HTML, or your own test email tool. Once the pixel is included, opens will show here.
                     </div>
                 </div>
 
                 <div class="detail-block">
-                    <h3>Email HTML snippet</h3>
-                    <p class="muted" style="margin-top: 8px;">Paste this into the HTML version of your email or email template.</p>
+                    <h3>Tracking URL</h3>
+                    <p class="muted" style="margin-top: 8px;">Open this URL directly to simulate an image load, or use it in other tools that want a plain URL.</p>
+                    <div class="code-box" style="margin-top: 14px;">${escapeHtml(detail.tracking_url)}</div>
+                    <div class="actions">
+                        <button class="secondary" type="button" id="copy-url">Copy URL</button>
+                    </div>
+                </div>
+
+                <div class="detail-block">
+                    <h3>Full HTML snippet</h3>
+                    <p class="muted" style="margin-top: 8px;">Same pixel, kept here as a full snippet block if you want to paste it into another template.</p>
                     <div class="code-box" style="margin-top: 14px;">${escapeHtml(detail.email_html)}</div>
                     <div class="actions">
-                        <button class="secondary" type="button" id="copy-html">Copy snippet</button>
+                        <button class="secondary" type="button" id="copy-html">Copy full snippet</button>
                     </div>
                 </div>
 
@@ -593,9 +744,37 @@
                 </div>
             `;
 
+            document.getElementById("copy-pixel-top").addEventListener("click", () => copyText(pixelOnly, "Pixel"));
+            document.getElementById("copy-pixel").addEventListener("click", () => copyText(pixelOnly, "Pixel"));
             document.getElementById("copy-url").addEventListener("click", () => copyText(detail.tracking_url, "Tracking URL"));
-            document.getElementById("copy-html").addEventListener("click", () => copyText(detail.email_html, "Snippet"));
+            document.getElementById("copy-html").addEventListener("click", () => copyText(detail.email_html, "Full snippet"));
             document.getElementById("open-url").addEventListener("click", () => window.open(detail.tracking_url, "_blank", "noopener"));
+            document.getElementById("refresh-detail").addEventListener("click", async () => {
+                setStatus("Refreshing tracker details...");
+                await loadTrackers();
+                setStatus("Tracker details refreshed.");
+            });
+            document.getElementById("delete-tracker").addEventListener("click", async () => {
+                const confirmed = window.confirm(`Delete tracker "${detail.name}"? This cannot be undone.`);
+                if (!confirmed) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/content/${detail.id}`, { method: "DELETE" });
+                    if (!response.ok) {
+                        throw new Error("Tracker deletion failed.");
+                    }
+
+                    if (state.selectedId === detail.id) {
+                        state.selectedId = null;
+                    }
+                    await loadTrackers();
+                    setStatus("Tracker deleted.");
+                } catch (error) {
+                    setStatus(error.message || "Could not delete tracker.", true);
+                }
+            });
         }
 
         async function loadTrackers() {
@@ -663,7 +842,7 @@
                 form.reset();
                 state.selectedId = created.id;
                 await loadTrackers();
-                setStatus("Tracker created. Copy the snippet on the right and paste it into your email.");
+                setStatus("Tracker created. Use Copy pixel for the fastest Gmail test.");
             } catch (error) {
                 setStatus(error.message || "Something went wrong.", true);
             }
